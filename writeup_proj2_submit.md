@@ -19,14 +19,14 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image1]: ./visualization.jpg "Visualization"
+[image2]: ./grayscale.jpg "Grayscaling"
+[image3]: ./random_noise.jpg "Random Noise"
+[image4]: ./test1.jpg "Traffic Sign 1"
+[image5]: ./test2.jpg "Traffic Sign 2"
+[image6]: ./test3.jpg "Traffic Sign 3"
+[image7]: ./test4.jpg "Traffic Sign 4"
+[image8]: ./test5.jpg "Traffic Sign 5"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -36,13 +36,13 @@ The goals / steps of this project are the following:
 
 ####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](https://github.com/gongdn/CarND-Traffic-Sign-Classifier-Project-master)
 
 ###Data Set Summary & Exploration
 
 ####1. Provide a basic summary of the data set and identify where in your code the summary was done. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-The code for this step is contained in the second code cell of the IPython notebook.  
+The code for this step is contained in the [2] code cell of the IPython notebook.  
 
 I used the pandas library to calculate summary statistics of the traffic
 signs data set:
@@ -55,11 +55,25 @@ Number of classes = 43
 
 ####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
 
-The code for this step is contained in the third code cell of the IPython notebook.  
+The code for this step is contained in the [165] code cell of the IPython notebook.  
 
 Here is an exploratory visualization of the data set. It is a bar chart showing the count and luminance characteristics of each class of signs. Also it plots randomly picked four traffic sign images from each classe of signs. 
 
-![alt text][image1]
+![alt text][train_ori/
+###Data Set Summary & Exploration
+####1. Provide a basic summary of the data set and identify where in your code the summary was done. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+The code for this step is contained in the [2] code cell of the IPython notebook.  
+I used the pandas library to calculate summary statistics of the traffic
+signs data set:
+Number of training examples = 34799
+Number of validdation examples = 4410
+Number of testing examples = 12630
+Image data shape = (32, 32, 3)
+Number of classes = 43
+####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
+The code for this step is contained in the [165] code cell of the IPython notebook.  
+Here is an exploratory visualization of the data set. It is a bar chart showing the count and luminance characteristics of each class of signs. Also it plots randomly picked four traffic sign images from each classe of signs. 
+![alt text][train_ori/class_0_9960.jpg]
 
 
 ###Design and Test a Model Architecture
