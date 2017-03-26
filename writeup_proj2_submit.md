@@ -151,14 +151,7 @@ To train the model, I used an AdamOptizer, batch size of 128, which includes 32 
 The code for calculating the accuracy of the model is located in the [133] cell of the Ipython notebook.
 
 My final model results were:
-* training set accuracy of 0.989
-* validation set accuracy of 0.980 
-* test set accuracy of 0.964
-
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to over fitting or under fitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+* training set accuracy of 0.989 on both sets indicates under fitting.
 * Which parameters were tuned? How were they adjusted and why?
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
@@ -200,7 +193,15 @@ The model was able to correctly guess 7 of the 8 traffic signs, which gives an a
 The code for making predictions on my final model is located in the [141] cell of the Ipython notebook.
 
 For the first image, the model is very sure that this is a chrildren crossing (probability of close to 1.0), and the image does contain a children crossing sign. It is correct prediction. The top five soft max probabilities were
-| Sign: Children crossing | Predicted as: Children crossing | with Prob= 0.974451 |
+| Sign: Children crossing | Predicted as: Children crossing | with Prob= 0.974451
+* validation set accuracy of 0.980 
+* test set accuracy of 0.964
+
+If an iterative approach was chosen:
+* What was the first architecture that was tried and why was it chosen?
+* What were some problems with the initial architecture?
+* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to over fitting or under fitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy |
+
 | Sign: Children crossing | Predicted as: Road narrows on the right | with Prob= 0.0128473 |
 | Sign: Children crossing | Predicted as: General caution | with Prob= 0.00904052 |
 | Sign: Children crossing | Predicted as: Double curve | with Prob= 0.00137386 |
@@ -208,6 +209,7 @@ For the first image, the model is very sure that this is a chrildren crossing (p
 
 
 For the second image, the model has good confidence to predict as 70km/h. It is correct prediction.
+
 | Sign: Speed limit (70km/h) | Predicted as: Speed limit (70km/h) | with Prob= 0.999872 |
 | Sign: Speed limit (70km/h) | Predicted as: Speed limit (30km/h) | with Prob= 0.000122245 |
 | Sign: Speed limit (70km/h) | Predicted as: Speed limit (20km/h) | with Prob= 6.08824e-06 |
@@ -216,6 +218,7 @@ For the second image, the model has good confidence to predict as 70km/h. It is 
 
 For the third image Sign: the model has good confidence to predict as Children crossing.
 Children crossing | Predicted as: Children crossing | with Prob= 0.999519 |
+
 | Sign: Children crossing | Predicted as: Right-of-way at the next intersection | with Prob= 0.000385162 |
 | Sign: Children crossing | Predicted as: Double curve | with Prob= 5.79479e-05 |
 | Sign: Children crossing | Predicted as: Ahead only | with Prob= 1.69498e-05 |
@@ -223,6 +226,7 @@ Children crossing | Predicted as: Children crossing | with Prob= 0.999519 |
 
 
 For the fouth image sign: the model has good confidence to predict as turn right.
+
 | Sign: Turn right ahead | Predicted as: Turn right ahead | with Prob= 0.99991 |
 | Sign: Turn right ahead | Predicted as: Speed limit (60km/h) | with Prob= 8.80022e-05 |
 | Sign: Turn right ahead | Predicted as: Speed limit (50km/h) | with Prob= 1.07522e-06 |
@@ -230,6 +234,7 @@ For the fouth image sign: the model has good confidence to predict as turn right
 | Sign: Turn right ahead | Predicted as: Speed limit (80km/h) | with Prob= 2.92429e-07 |
 
 For the fifth image sign: the model has good confidence to predict as 30km/h.It is correct prediction.
+
 | Sign: Speed limit (30km/h) | Predicted as: Speed limit (30km/h) | with Prob= 0.999956 |
 | Sign: Speed limit (30km/h) | Predicted as: Speed limit (80km/h) | with Prob= 1.79969e-05 |
 | Sign: Speed limit (30km/h) | Predicted as: Speed limit (20km/h) | with Prob= 1.16181e-05 |
@@ -238,6 +243,7 @@ For the fifth image sign: the model has good confidence to predict as 30km/h.It 
 
 Below are some extra analysis I did:
 For the six image sign: the model has wrong prediction as 50kM/h due to the above reason I explained.
+
 | Sign: Speed limit (30km/h) | Predicted as: Speed limit (50km/h) | with Prob= 0.639711 |
 | Sign: Speed limit (30km/h) | Predicted as: Go straight or left | with Prob= 0.236637 |
 | Sign: Speed limit (30km/h) | Predicted as: Roundabout mandatory | with Prob= 0.0604759 |
@@ -245,6 +251,7 @@ For the six image sign: the model has wrong prediction as 50kM/h due to the abov
 | Sign: Speed limit (30km/h) | Predicted as: Keep right | with Prob= 0.00856118 |
 
 For the seventh image sign: the model can predict as General cuation with high confidence.
+
 | Sign: General caution | Predicted as: General caution | with Prob= 1.0 |
 | Sign: General caution | Predicted as: Traffic signals | with Prob= 6.62229e-10 |
 | Sign: General caution | Predicted as: Road narrows on the right | with Prob= 1.72329e-11 |
@@ -253,6 +260,7 @@ For the seventh image sign: the model can predict as General cuation with high c
 
 
 For the last image: the model predict as Chrilden corssing with prob of 80%. It is correct prediction.
+
 | Sign: Children crossing | Predicted as: Children crossing | with Prob= 0.806192 |
 | Sign: Children crossing | Predicted as: Road narrows on the right | with Prob= 0.101339 |
 | Sign: Children crossing | Predicted as: Pedestrians | with Prob= 0.0574763 |
