@@ -38,28 +38,7 @@ The goals / steps of this project are the following:
 
 You're reading it! and here is a link to my [project code](https://github.com/gongdn/CarND-Traffic-Sign-Classifier-Project-master)
 
-###Data Set Summary & Exploration
 
-####1. Provide a basic summary of the data set and identify where in your code the summary was done. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
-
-The code for this step is contained in the [2] code cell of the IPython notebook.  
-
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
-
-Number of training examples = 34799
-Number of validdation examples = 4410
-Number of testing examples = 12630
-Image data shape = (32, 32, 3)
-Number of classes = 43
-
-####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
-
-The code for this step is contained in the [165] code cell of the IPython notebook.  
-
-Here is an exploratory visualization of the data set. It is a bar chart showing the count and luminance characteristics of each class of signs. Also it plots randomly picked four traffic sign images from each classe of signs. 
-
-![alt text][train_ori/
 ###Data Set Summary & Exploration
 ####1. Provide a basic summary of the data set and identify where in your code the summary was done. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 The code for this step is contained in the [2] code cell of the IPython notebook.  
@@ -70,10 +49,10 @@ Number of validdation examples = 4410
 Number of testing examples = 12630
 Image data shape = (32, 32, 3)
 Number of classes = 43
+
 ####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
 The code for this step is contained in the [165] code cell of the IPython notebook.  
-Here is an exploratory visualization of the data set. It is a bar chart showing the count and luminance characteristics of each class of signs. Also it plots randomly picked four traffic sign images from each classe of signs. 
-![alt text][train_ori/class_0_9960.jpg]
+After executing the cell, it shows an exploratory visualization of the data set. It is a bar chart showing the count and luminance characteristics of each class of signs (min/max/mean). Also it plots randomly picked eight traffic sign images from each classe of signs. 
 
 
 ###Design and Test a Model Architecture
@@ -94,50 +73,70 @@ As a last step, I normalized the image data because zero mean is helpful for lat
 
 ####2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
 
+The code to add new augmented images are in code cell [50].
+Add 820 samples for 0 Speed limit (20km/h) class
+Add 640 samples for 6 End of speed limit (80km/h) class
+Add 310 samples for 14 Stop class
+Add 460 samples for 15 No vehicles class
+Add 640 samples for 16 Vehicles over 3.5 metric tons prohibited class
+Add 10 samples for 17 No entry class
+Add 820 samples for 19 Dangerous curve to the left class
+Add 700 samples for 20 Dangerous curve to the right class
+Add 730 samples for 21 Double curve class
+Add 670 samples for 22 Bumpy road class
+Add 550 samples for 23 Slippery road class
+Add 760 samples for 24 Road narrows on the right class
+Add 460 samples for 26 Traffic signals class
+Add 790 samples for 27 Pedestrians class
+Add 520 samples for 28 Children crossing class
+Add 760 samples for 29 Bicycles crossing class
+Add 610 samples for 30 Beware of ice/snow class
+Add 310 samples for 31 Wild animals crossing class
+Add 790 samples for 32 End of all speed and passing limits class
+Add 401 samples for 33 Turn right ahead class
+Add 640 samples for 34 Turn left ahead class
+Add 670 samples for 36 Go straight or right class
+Add 820 samples for 37 Go straight or left class
+Add 730 samples for 39 Keep left class
+Add 700 samples for 40 Roundabout mandatory class
+Add 790 samples for 41 End of no passing class
+Add 790 samples for 42 End of no passing by vehicles over 3.5 metric tons class
+Augmented Train Data Set Size,Max,Min,Mean: 51690 1.0 -1.0 0.0805464956692
 
-umber of training examples = 34799
-Number of validdation examples = 4410
-Number of testing examples = 12630
-Image data shape = (32, 32, 3)
-Number of classes = 43
+After the executing the cell, it will show the augmented image in gray. The size of traing set is increased from 34799 to 51690.
+The mean is increased from 0.03 to 0.08. 
 
-
-To cross validate my model, I randomly split the training data into a training set and validation set. I did this by ...
-
-My final training set had X number of images. My validation set and test set had Y and Z number of images.
-
-The sixth code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because some class's predictoin accuarcy is very low, e.g. class 24, the validation accuracy is 0.2 and test accuracy is 0.511. And class 41, valid accuracy is 36.7%, test acc is 0.7.
-
-To add more data to the the data set, I used the following techniques because ... 
-
-
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
-
+Each class will have 1000 training samples with extra augmentation. 
+I used the specification for augmentation as follows:
+aug_spec={"brightness": randomly change gray value with scalar factor range of [0.9,1.1], # 
+         "angle":5, randomly change angle with range of [-2.5 degree to 2.5 degree]
+         "tran":4, randomly change offset in the range of [-2,2] and [-2,2] in Horinzontal and vertical direction
+         "scale":[0.75,1.5]} randomly scale up or down in the range of [0.75, 1.5]
+          }
+Also flip with a probability of 25% for specific class, excluding classes with numbers, words and left/right arrows.
 
 ####3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-The code for my final model is located in the seventh cell of the ipython notebook. 
+The code for my final model is located in the [123] cell of the ipython notebook. 
 
 My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1 Gray image   							| 
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x8 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
-
+| Max pooling	      	| 2x2 stride,  outputs 14x14x8 				|
+| Convolution 3x3	    | 1x1 stride, valid padding, output 10x10x16.      									|
+| RELU | |
+| Max pooling | 2x2 stride, outputs 5x5x16 |
+| Fully connected		| inputs 400, outputs 128        									|
+| RELU | |
+| drop out | keep prob = 0.8]
+| Fully connected  | inputs 128, outputs 256                 | 
+| RELU | |
+| drop out | keep prob = 0.8]
+| Fully connected  | inputs 256, outputs 43                 |
 
 ####4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
