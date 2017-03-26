@@ -101,6 +101,7 @@ Add 730 samples for 39 Keep left class
 Add 700 samples for 40 Roundabout mandatory class
 Add 790 samples for 41 End of no passing class
 Add 790 samples for 42 End of no passing by vehicles over 3.5 metric tons class
+
 Augmented Train Data Set Size,Max,Min,Mean: 51690 1.0 -1.0 0.0805464956692
 
 After the executing the cell, it will show the augmented image in gray. The size of traing set is increased from 34799 to 51690.
@@ -132,26 +133,27 @@ My final model consisted of the following layers:
 | Max pooling | 2x2 stride, outputs 5x5x16 |
 | Fully connected		| inputs 400, outputs 128        									|
 | RELU | |
-| drop out | keep prob = 0.8]
+| drop out | keep prob = 0.8|
 | Fully connected  | inputs 128, outputs 256                 | 
 | RELU | |
-| drop out | keep prob = 0.8]
+| drop out | keep prob = 0.8|
 | Fully connected  | inputs 256, outputs 43                 |
 
 ####4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-The code for training the model is located in the eigth cell of the ipython notebook. 
+The code for training the model is located in the [124, 125] cell of the ipython notebook. 
 
-To train the model, I used an ....
+To train the model, I used an AdamOptizer, batch size of 128, which includes 32 original training samples and 96 augmented training samples which are generated during the training. I used EPOCHs as 75 and learning rate of 0.0008.
 
 ####5. Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-The code for calculating the accuracy of the model is located in the ninth cell of the Ipython notebook.
+
+The code for calculating the accuracy of the model is located in the [133] cell of the Ipython notebook.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 0.989
+* validation set accuracy of 0.980 
+* test set accuracy of 0.964
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
@@ -162,51 +164,97 @@ If an iterative approach was chosen:
 
 If a well known architecture was chosen:
 * What architecture was chosen?
+Lenet-5 was chosen. With some change on the number of nodes and depths in each layer. Alos added two drop out layers after FC1 and FC2.
 * Why did you believe it would be relevant to the traffic sign application?
+Image size is 32x32 so two conv layer is enough. The class number is 43, which means the FC might not be too large or too deep. 
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+ The gap between traing and validation is less than 1%, which means the model is not overfitting. Also, the accuracy is 98%, not too far away from 100%, which means it is not underfitting and can modelling the unseen images well. Overall, it has good prediction. Also, check the recall and precision rate. They are 96%~98% for test and validation data set. It means it can give us good confidency on the prediction.  
 
 ###Test a Model on New Images
 
 ####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+Code cell [135] shows the web images. I used image tool to resize and crop the image to 32x32. There are 3 different scaled size of class 28 image and 2 different scaled size of class 1 image. Totally 8 images from 5 class are tested. Test0.jpg image is relatively big, almost occpies the whole window, but due to upscaling in augmentation step, it can be still recognized. test7.jpg is a scaled down version of test0.jpg, which can be recognized by network without augmentation, but can not be recognized if I did not add the augmentation step. This make me believe the augmentation really can make the network more general. test5.jpg is intentionally made small and moved upword far beyong +/-2 pixel. It turned out the network can not recognize it. It is even not in the top five candidate. 
 
-Here are five German traffic signs that I found on the web:
-
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
-
-The first image might be difficult to classify because ...
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-The code for making predictions on my final model is located in the tenth cell of the Ipython notebook.
+The code for making predictions on my final model is located in the [137] cell of the Ipython notebook.
 
 Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Chrilden crossing      		| Chrildren  crossing 									| 
+| 70km/h     			| 70km/h 										|
+| Chrilden crossing        | Chrildren crossing           | 
+| Turng right ahead			| Turn right ahead      							|
+| 30km/h        | 30km/h           |
+| 30km/h        | 50km/h           |
+| General caution        | general caution           |
+| Chrilden crossing        | Chrildren  crossing          | 
 
-
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 7 of the 8 traffic signs, which gives an accuracy of 87.5%. This compares favorably to the accuracy on the test set of 96.4%.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the [141] cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+For the first image, the model is very sure that this is a chrildren crossing (probability of close to 1.0), and the image does contain a children crossing sign. It is correct prediction. The top five soft max probabilities were
+| Sign: Children crossing | Predicted as: Children crossing | with Prob= 0.974451 |
+| Sign: Children crossing | Predicted as: Road narrows on the right | with Prob= 0.0128473 |
+| Sign: Children crossing | Predicted as: General caution | with Prob= 0.00904052 |
+| Sign: Children crossing | Predicted as: Double curve | with Prob= 0.00137386 |
+| Sign: Children crossing | Predicted as: Pedestrians | with Prob= 0.00116162 |
 
 
-For the second image ... 
+For the second image, the model has good confidence to predict as 70km/h. It is correct prediction.
+| Sign: Speed limit (70km/h) | Predicted as: Speed limit (70km/h) | with Prob= 0.999872 |
+| Sign: Speed limit (70km/h) | Predicted as: Speed limit (30km/h) | with Prob= 0.000122245 |
+| Sign: Speed limit (70km/h) | Predicted as: Speed limit (20km/h) | with Prob= 6.08824e-06 |
+| Sign: Speed limit (70km/h) | Predicted as: Speed limit (50km/h) | with Prob= 6.89119e-08 |
+| Sign: Speed limit (70km/h) | Predicted as: Speed limit (80km/h) | with Prob= 1.52601e-08 |
+
+For the third image Sign: the model has good confidence to predict as Children crossing.
+Children crossing | Predicted as: Children crossing | with Prob= 0.999519 |
+| Sign: Children crossing | Predicted as: Right-of-way at the next intersection | with Prob= 0.000385162 |
+| Sign: Children crossing | Predicted as: Double curve | with Prob= 5.79479e-05 |
+| Sign: Children crossing | Predicted as: Ahead only | with Prob= 1.69498e-05 |
+| Sign: Children crossing | Predicted as: General caution | with Prob= 1.31003e-05 |
+
+
+For the fouth image sign: the model has good confidence to predict as turn right.
+| Sign: Turn right ahead | Predicted as: Turn right ahead | with Prob= 0.99991 |
+| Sign: Turn right ahead | Predicted as: Speed limit (60km/h) | with Prob= 8.80022e-05 |
+| Sign: Turn right ahead | Predicted as: Speed limit (50km/h) | with Prob= 1.07522e-06 |
+| Sign: Turn right ahead | Predicted as: Speed limit (100km/h) | with Prob= 6.55193e-07 |
+| Sign: Turn right ahead | Predicted as: Speed limit (80km/h) | with Prob= 2.92429e-07 |
+
+For the fifth image sign: the model has good confidence to predict as 30km/h.It is correct prediction.
+| Sign: Speed limit (30km/h) | Predicted as: Speed limit (30km/h) | with Prob= 0.999956 |
+| Sign: Speed limit (30km/h) | Predicted as: Speed limit (80km/h) | with Prob= 1.79969e-05 |
+| Sign: Speed limit (30km/h) | Predicted as: Speed limit (20km/h) | with Prob= 1.16181e-05 |
+| Sign: Speed limit (30km/h) | Predicted as: Speed limit (50km/h) | with Prob= 1.13349e-05 |
+| Sign: Speed limit (30km/h) | Predicted as: Speed limit (70km/h) | with Prob= 1.61005e-06 |
+
+Below are some extra analysis I did:
+For the six image sign: the model has wrong prediction as 50kM/h due to the above reason I explained.
+| Sign: Speed limit (30km/h) | Predicted as: Speed limit (50km/h) | with Prob= 0.639711 |
+| Sign: Speed limit (30km/h) | Predicted as: Go straight or left | with Prob= 0.236637 |
+| Sign: Speed limit (30km/h) | Predicted as: Roundabout mandatory | with Prob= 0.0604759 |
+| Sign: Speed limit (30km/h) | Predicted as: Keep left | with Prob= 0.031633 |
+| Sign: Speed limit (30km/h) | Predicted as: Keep right | with Prob= 0.00856118 |
+
+For the seventh image sign: the model can predict as General cuation with high confidence.
+| Sign: General caution | Predicted as: General caution | with Prob= 1.0 |
+| Sign: General caution | Predicted as: Traffic signals | with Prob= 6.62229e-10 |
+| Sign: General caution | Predicted as: Road narrows on the right | with Prob= 1.72329e-11 |
+| Sign: General caution | Predicted as: Pedestrians | with Prob= 4.91858e-13 |
+| Sign: General caution | Predicted as: Children crossing | with Prob= 9.73706e-16 |
+
+
+For the last image: the model predict as Chrilden corssing with prob of 80%. It is correct prediction.
+| Sign: Children crossing | Predicted as: Children crossing | with Prob= 0.806192 |
+| Sign: Children crossing | Predicted as: Road narrows on the right | with Prob= 0.101339 |
+| Sign: Children crossing | Predicted as: Pedestrians | with Prob= 0.0574763 |
+| Sign: Children crossing | Predicted as: Right-of-way at the next intersection | with Prob= 0.0337527 |
+| Sign: Children crossing | Predicted as: Double curve | with Prob= 0.000835861 |
